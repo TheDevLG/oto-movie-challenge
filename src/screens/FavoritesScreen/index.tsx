@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, View, Text } from 'react-native';
+import { FlatList, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import MovieCard from '../../components/MovieCard';
 import { RootState } from '../../store/index';
