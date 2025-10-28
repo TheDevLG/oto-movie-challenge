@@ -2,9 +2,9 @@ import React from 'react';
 import { FlatList, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import MovieCard from '../../components/MovieCard';
-import { RootState } from '../../store/index';
+import { RootState } from '../../store';
 import { clearFavorites } from '../../store/favoritesSlice';
-import { Container, Empty, ClearButton } from './styles';
+import { Container, Empty, EmptyText, ClearButton, ClearButtonText } from './styles';
 
 export default function FavoritesScreen({ navigation }: any) {
   const favorites = useSelector((s: RootState) => s.favorites.items);
@@ -14,18 +14,22 @@ export default function FavoritesScreen({ navigation }: any) {
     <Container>
       {favorites.length === 0 ? (
         <Empty>
-          <Text>Nenhum favorito ainda</Text>
+          <EmptyText>💔 Nenhum favorito ainda</EmptyText>
         </Empty>
       ) : (
         <>
           <ClearButton onPress={() => dispatch(clearFavorites())}>
-            <Text style={{ color: 'white' }}>Limpar todos</Text>
+            <ClearButtonText>🗑️ Limpar todos</ClearButtonText>
           </ClearButton>
+
           <FlatList
             data={favorites}
-            keyExtractor={item => String(item.id)}
+            keyExtractor={(item) => String(item.id)}
             renderItem={({ item }) => (
-              <MovieCard movie={item} onPress={() => navigation.navigate('Movie', { id: item.id })} />
+              <MovieCard
+                movie={item}
+                onPress={() => navigation.navigate('Movie', { id: item.id })}
+              />
             )}
           />
         </>

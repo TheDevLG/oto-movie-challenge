@@ -3,9 +3,8 @@ import { ScrollView, ActivityIndicator, Alert } from 'react-native';
 import { Container, Poster, Title, Small, Button, ButtonText } from './styles';
 import { getMovieDetails } from '../../api/tmdb';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store/index';
+import { RootState } from '../../store';
 import { addFavorite, removeFavorite } from '../../store/favoritesSlice';
-
 
 export default function MovieScreen({ route, navigation }: any) {
   const { id } = route.params;
@@ -30,7 +29,8 @@ export default function MovieScreen({ route, navigation }: any) {
     })();
   }, [id]);
 
-  if (loading || !movie) return <ActivityIndicator style={{ flex: 1 }} />;
+  if (loading || !movie)
+    return <ActivityIndicator style={{ flex: 1 }} color="#E50914" />;
 
   const toggleFav = () => {
     if (isFav) dispatch(removeFavorite(movie.id));
@@ -38,16 +38,16 @@ export default function MovieScreen({ route, navigation }: any) {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: '#121212' }}>
       <Container>
         <Poster source={{ uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}` }} />
         <Title>{movie.title}</Title>
-        <Small>Gêneros: {movie.genres?.map((g: any) => g.name).join(', ')}</Small>
-        <Small>Data de lançamento: {movie.release_date}</Small>
-        <Small>Receita: {movie.revenue ? `R$ ${movie.revenue}` : '—'}</Small>
+        <Small>🎭 Gêneros: {movie.genres?.map((g: any) => g.name).join(', ')}</Small>
+        <Small>📅 Lançamento: {movie.release_date}</Small>
+        <Small>💰 Receita: {movie.revenue ? `R$ ${movie.revenue}` : '—'}</Small>
         <Small style={{ marginTop: 12 }}>{movie.overview}</Small>
 
-        <Button onPress={toggleFav}>
+        <Button onPress={toggleFav} isFav={isFav}>
           <ButtonText>{isFav ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}</ButtonText>
         </Button>
       </Container>
