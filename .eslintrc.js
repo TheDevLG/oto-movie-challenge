@@ -1,0 +1,21 @@
+module.exports = {
+    root: true,
+    extends: [
+        'eslint:recommended',
+        'plugin:react/recommended',
+        'plugin:@typescript-eslint/recommended',
+        'prettier'
+        ],
+    parser: '@typescript-eslint/parser',
+    plugins: ['@typescript-eslint', 'react'],
+    env: {
+        browser: true,
+        node: true,
+        es6: true
+    },
+    settings: {
+        react: {
+            version: 'detect'
+        }
+    }
+};
