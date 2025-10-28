@@ -11,12 +11,17 @@
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^2.2.0",
+    "@react-navigation/bottom-tabs": "^6.5.7",
+    "@react-navigation/native": "6.1.6",
+    "@react-navigation/native-stack": "6.9.12",
     "@reduxjs/toolkit": "^2.9.2",
     "axios": "^1.13.0",
     "expo": "~52.0.47",
     "expo-status-bar": "~2.0.1",
     "react": "18.3.1",
     "react-native": "0.76.9",
+    "react-native-safe-area-context": "^5.6.1",
+    "react-native-screens": "~3.20.0",
     "react-redux": "^9.2.0",
     "styled-components": "^6.1.19"
   },
