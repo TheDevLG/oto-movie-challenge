@@ -1,5 +1,6 @@
 import React from 'react';
-import { FlatList, Text } from 'react-native';
+import { FlatList } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector, useDispatch } from 'react-redux';
 import MovieCard from '../../components/MovieCard';
 import { RootState } from '../../store';
@@ -11,29 +12,31 @@ export default function FavoritesScreen({ navigation }: any) {
   const dispatch = useDispatch();
 
   return (
-    <Container>
-      {favorites.length === 0 ? (
-        <Empty>
-          <EmptyText>💔 Nenhum favorito ainda</EmptyText>
-        </Empty>
-      ) : (
-        <>
-          <ClearButton onPress={() => dispatch(clearFavorites())}>
-            <ClearButtonText>🗑️ Limpar todos</ClearButtonText>
-          </ClearButton>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#121212' }} edges={['top', 'bottom']}>
+      <Container>
+        {favorites.length === 0 ? (
+          <Empty>
+            <EmptyText>💔 Nenhum favorito ainda</EmptyText>
+          </Empty>
+        ) : (
+          <>
+            <ClearButton onPress={() => dispatch(clearFavorites())}>
+              <ClearButtonText>🗑️ Limpar todos</ClearButtonText>
+            </ClearButton>
 
-          <FlatList
-            data={favorites}
-            keyExtractor={(item) => String(item.id)}
-            renderItem={({ item }) => (
-              <MovieCard
-                movie={item}
-                onPress={() => navigation.navigate('Movie', { id: item.id })}
-              />
-            )}
-          />
-        </>
-      )}
-    </Container>
+            <FlatList
+              data={favorites}
+              keyExtractor={(item) => String(item.id)}
+              renderItem={({ item }) => (
+                <MovieCard
+                  movie={item}
+                  onPress={() => navigation.navigate('Movie', { id: item.id })}
+                />
+              )}
+            />
+          </>
+        )}
+      </Container>
+    </SafeAreaView>
   );
 }

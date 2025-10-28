@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useEffect } from "react";
 import { FlatList, ActivityIndicator, RefreshControl } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import MovieCard from "../../components/MovieCard";
 import { Container, Header, Title } from "./styles";
 import { getTopRated } from "../../api/tmdb";
@@ -17,6 +18,7 @@ export default function HomeScreen({ navigation }: any) {
     try {
       const response = await getTopRated(p);
       const data = response.data;
+
       setTotalPages(data.total_pages);
       setMovies((prev) => (replace ? data.results : [...prev, ...data.results]));
       setPage(p);
@@ -43,33 +45,31 @@ export default function HomeScreen({ navigation }: any) {
   };
 
   return (
-    <Container>
-      <Header>
-        <Title>🎬 Filmes Mais Bem Avaliados</Title>
-      </Header>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#121212" }} edges={["top", "bottom"]}>
+      <Container>
+        <Header>
+          <Title>🎬 Filmes Mais Bem Avaliados</Title>
+        </Header>
 
-      <FlatList
-        data={movies}
-        keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => (
-          <MovieCard
-            movie={item}
-            onPress={() => navigation.navigate("Movie", { id: item.id })}
-          />
-        )}
-        onEndReached={handleEndReached}
-        onEndReachedThreshold={0.5}
-        ListFooterComponent={
-          loading ? <ActivityIndicator color="#E50914" style={{ marginVertical: 20 }} /> : null
-        }
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-            tintColor="#E50914"
-          />
-        }
-      />
-    </Container>
+        <FlatList
+          data={movies}
+          keyExtractor={(item) => String(item.id)}
+          renderItem={({ item }) => (
+            <MovieCard
+              movie={item}
+              onPress={() => navigation.navigate("Movie", { id: item.id })}
+            />
+          )}
+          onEndReached={handleEndReached}
+          onEndReachedThreshold={0.5}
+          ListFooterComponent={
+            loading ? <ActivityIndicator color="#E50914" style={{ marginVertical: 20 }} /> : null
+          }
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#E50914" />
+          }
+        />
+      </Container>
+    </SafeAreaView>
   );
 }
