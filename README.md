@@ -1,3 +1,21 @@
+## 📱 Funcionalidades
+
+### 🏠 Home
+- Exibe filmes mais bem avaliados (Top Rated)
+- Scroll infinito com paginação
+- Pull to refresh
+- Acesso ao detalhe do filme
+
+### 🎬 Detalhe do filme
+- Exibe título, imagem, gêneros, data de lançamento e receita
+- Permite favoritar/desfavoritar um filme
+
+### ⭐ Favoritos
+- Lista filmes salvos como favoritos
+- Permite limpar todos
+- Sincroniza entre Redux e AsyncStorage
+
+
 ## 🚀 Execução do Projeto
 
 ### ✅ **Pré-requisitos**
