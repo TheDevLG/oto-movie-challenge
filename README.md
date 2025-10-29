@@ -41,14 +41,15 @@ Para iniciar o app em modo de desenvolvimento, execute:
 ```bash
 yarn start --tunnel
 ```
+O modo tunnel garante a conexão independente da rede, visto que na execução comum (yarn start), os dispositivos dependem de estar na mesma rede.
 
 ---
 
 ### 📱 **Executar no Expo Go (modo Tunnel)**
-(o modo tunnel garante a execução)
-1. Abra o **app Expo Go** no seu celular (Android/iOS).  
-2. Escaneie o QR Code exibido no terminal.  
-3. Aguarde o carregamento automático do app.
+1. Baixe o Expo Go compatível com expo 52 no seguinte endereço: https://github.com/expo/expo-go-releases/releases/download/Expo-Go-2.32.20/Expo-Go-2.32.20.apk
+2. Abra o **app Expo Go** no seu celular (Android/iOS).  
+3. Escaneie o QR Code exibido no terminal.  
+4. Aguarde o carregamento automático do app.
 
 > 🔒 Caso o QR não funcione, verifique se o firewall do Windows permite conexões locais ou utilize o modo `--lan`.
 
@@ -58,7 +59,7 @@ yarn start --tunnel
 Se notar erros estranhos de import ou cache, execute:
 
 ```bash
-yarn start -c
+yarn start -c --tunnel
 ```
 ou
 ```bash
