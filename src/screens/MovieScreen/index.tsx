@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, ActivityIndicator, Alert } from 'react-native';
 import { Container, Poster, Title, Small, Button, ButtonText } from './styles';
-import { getMovieDetails } from '../../api/tmdb';
+import { getMovieDetails } from '../../services/tmdb';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { addFavorite, removeFavorite } from '../../store/favoritesSlice';

@@ -3,7 +3,7 @@ import { FlatList, ActivityIndicator, RefreshControl } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MovieCard from "../../components/MovieCard";
 import { Container, Header, Title } from "./styles";
-import { getTopRated } from "../../api/tmdb";
+import { getTopRated } from "../../services/tmdb";
 
 export default function HomeScreen({ navigation }: any) {
   const [movies, setMovies] = useState<any[]>([]);
