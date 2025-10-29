@@ -1,60 +1,68 @@
-## 🧾 Sobre o projeto
+## 🚀 Execução do Projeto
 
-O app consome a API do [The Movie Database (TMDB)](https://www.themoviedb.org) para exibir uma lista de filmes mais bem avaliados, seus detalhes e permitir que o usuário marque seus filmes favoritos.
+### ✅ **Pré-requisitos**
+Antes de iniciar, verifique se possui as versões corretas instaladas:
+```bash
+node -v    # v22.21.0
+yarn -v    # deve estar instalado (npm pode causar conflitos)
+```
 
-Todos os favoritos são **armazenados localmente** usando **AsyncStorage** e mantidos sincronizados com o estado global via **Redux Toolkit**.
+### ⚙️ **Instalar dependências**
+Use **Yarn** (não npm) para garantir compatibilidade com o Expo 52 e React Native 0.76:
+```bash
+yarn install
+```
+
+> 💡 Caso veja alertas sobre peer dependencies, eles podem ser ignorados — o Expo gerencia as versões compatíveis automaticamente.
 
 ---
 
-## ⚙️ Tecnologias utilizadas
+### ▶️ **Rodar o projeto**
+Para iniciar o app em modo de desenvolvimento, execute:
 
-- **Expo SDK 53**
+```bash
+yarn start --tunnel
+```
+
+---
+
+### 📱 **Executar no Expo Go (modo Tunnel)**
+(o modo tunnel garante a execução)
+1. Abra o **app Expo Go** no seu celular (Android/iOS).  
+2. Escaneie o QR Code exibido no terminal.  
+3. Aguarde o carregamento automático do app.
+
+> 🔒 Caso o QR não funcione, verifique se o firewall do Windows permite conexões locais ou utilize o modo `--lan`.
+
+---
+
+### 🧹 **Limpar cache (caso ocorra erro de Metro bundler)**
+Se notar erros estranhos de import ou cache, execute:
+
+```bash
+yarn start -c
+```
+ou
+```bash
+expo start -c
+```
+
+---
+
+## 🧩 Tecnologias Utilizadas
+- **Expo 52**
 - **React Native 0.76**
-- **TypeScript**
+- **React 18.3.1**
 - **Redux Toolkit**
-- **AsyncStorage**
 - **Styled Components**
 - **React Navigation**
 - **Axios**
-- **ESLint + Prettier**
-- **Hooks personalizados**
+- **TMDB API**
 
 ---
 
-## 📱 Funcionalidades
-
-### 🏠 Home
-- Exibe filmes mais bem avaliados (Top Rated)
-- Scroll infinito com paginação
-- Pull to refresh
-- Acesso ao detalhe do filme
-
-### 🎬 Detalhe do filme
-- Exibe título, imagem, gêneros, data de lançamento e receita
-- Permite favoritar/desfavoritar um filme
-
-### ⭐ Favoritos
-- Lista filmes salvos como favoritos
-- Permite limpar todos
-- Sincroniza entre Redux e AsyncStorage
-
-
----
-
-## 🚀 Como executar o projeto
-
-### 1️⃣ Pré-requisitos
-- Node.js **v18 ou superior**
-- npm ou yarn
-- Expo CLI
-
-### 2️⃣ Instalação
-
-```bash
-# Instalar dependências
-npm install
-
-# Iniciar o projeto
-npx expo start
-
-
+**Funções principais:**
+- `favorites`: lista de filmes favoritos
+- `addFavorite(movie)`: adiciona um novo favorito
+- `removeFavorite(id)`: remove um filme favorito
+- `clearFavorites()`: limpa todos os favoritos
