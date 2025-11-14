@@ -1,23 +1,24 @@
 import React from 'react';
 import { TouchableOpacity, Image } from 'react-native';
 import { Container, Info, Title, Small } from './styles';
+import { Movie } from '../../types/movie';
 
 type Props = {
-  movie: any;
+  movie: Movie;
   onPress?: () => void;
 };
 
 export default function MovieCard({ movie, onPress }: Props) {
-  const image = movie.poster_path
+  const posterUri = movie?.poster_path
     ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
     : undefined;
 
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.8}>
       <Container>
-        {image ? (
+        {posterUri ? (
           <Image
-            source={{ uri: image }}
+            source={{ uri: posterUri }}
             style={{
               width: 90,
               height: 130,
@@ -32,9 +33,11 @@ export default function MovieCard({ movie, onPress }: Props) {
           />
         )}
         <Info>
-          <Title numberOfLines={2}>{movie.title}</Title>
-          <Small>⭐ Média: {movie.vote_average?.toFixed(1)} ({movie.vote_count} votos)</Small>
-          <Small>🔥 Popularidade: {movie.popularity}</Small>
+          <Title numberOfLines={2}>{movie?.title ?? '—'}</Title>
+          <Small>
+            ⭐ Média: {movie?.vote_average?.toFixed(1) ?? '—'} ({movie?.vote_count ?? 0} votos)
+          </Small>
+          <Small>🔥 Popularidade: {movie?.popularity ?? 0}</Small>
         </Info>
       </Container>
     </TouchableOpacity>
