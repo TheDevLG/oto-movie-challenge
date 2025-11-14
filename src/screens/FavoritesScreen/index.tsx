@@ -1,20 +1,33 @@
 import React from 'react';
 import { FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import MovieCard from '../../components/MovieCard';
-import { RootState } from '../../store';
 import { clearFavorites } from '../../store/favoritesSlice';
 import { Container, Empty, EmptyText, ClearButton, ClearButtonText } from './styles';
+import { Movie } from '../../types/movie';
+import { CompositeNavigationProp } from '@react-navigation/native';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { MainTabParamList, RootStackParamList } from '../../types/navigation';
 
-export default function FavoritesScreen({ navigation }: any) {
-  const favorites = useSelector((s: RootState) => s.favorites.items);
-  const dispatch = useDispatch();
+type HomeNavigationProp = CompositeNavigationProp<
+  BottomTabNavigationProp<MainTabParamList, 'Home'>,
+  NativeStackNavigationProp<RootStackParamList>
+>;
+
+type Props = {
+  navigation: HomeNavigationProp;
+};
+
+export default function FavoritesScreen({ navigation }: Props) {
+  const favorites = useAppSelector(s => s.favorites.items as Movie[]);
+  const dispatch = useAppDispatch();
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#121212' }} edges={['top', 'bottom']}>
       <Container>
-        {favorites.length === 0 ? (
+        {favorites?.length === 0 ? (
           <Empty>
             <EmptyText>💔 Nenhum favorito ainda</EmptyText>
           </Empty>
@@ -24,14 +37,11 @@ export default function FavoritesScreen({ navigation }: any) {
               <ClearButtonText>🗑️ Limpar todos</ClearButtonText>
             </ClearButton>
 
-            <FlatList
+            <FlatList<Movie>
               data={favorites}
-              keyExtractor={(item) => String(item.id)}
+              keyExtractor={item => String(item.id)}
               renderItem={({ item }) => (
-                <MovieCard
-                  movie={item}
-                  onPress={() => navigation.navigate('Movie', { id: item.id })}
-                />
+                <MovieCard movie={item} onPress={() => navigation.navigate('Movie', { id: item.id })} />
               )}
             />
           </>
