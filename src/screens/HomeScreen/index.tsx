@@ -5,10 +5,19 @@ import MovieCard from '../../components/MovieCard';
 import { Container, Header, Title } from './styles';
 import { getTopRated } from '../../services/tmdb';
 import { Movie, PaginatedResponse } from '../../types/movie';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../types/navigation';
+import { CompositeNavigationProp } from '@react-navigation/native';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { MainTabParamList, RootStackParamList } from '../../types/navigation';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Main'>;
+type HomeNavigationProp = CompositeNavigationProp<
+  BottomTabNavigationProp<MainTabParamList, 'Home'>,
+  NativeStackNavigationProp<RootStackParamList>
+>;
+
+type Props = {
+  navigation: HomeNavigationProp;
+};
 
 export default function HomeScreen({ navigation }: Props) {
   const [movies, setMovies] = useState<Movie[]>([]);

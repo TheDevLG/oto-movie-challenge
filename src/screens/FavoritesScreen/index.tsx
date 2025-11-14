@@ -6,10 +6,19 @@ import MovieCard from '../../components/MovieCard';
 import { clearFavorites } from '../../store/favoritesSlice';
 import { Container, Empty, EmptyText, ClearButton, ClearButtonText } from './styles';
 import { Movie } from '../../types/movie';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../types/navigation';
+import { CompositeNavigationProp } from '@react-navigation/native';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { MainTabParamList, RootStackParamList } from '../../types/navigation';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Main'>;
+type HomeNavigationProp = CompositeNavigationProp<
+  BottomTabNavigationProp<MainTabParamList, 'Home'>,
+  NativeStackNavigationProp<RootStackParamList>
+>;
+
+type Props = {
+  navigation: HomeNavigationProp;
+};
 
 export default function FavoritesScreen({ navigation }: Props) {
   const favorites = useAppSelector(s => s.favorites.items as Movie[]);

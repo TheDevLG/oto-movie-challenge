@@ -8,8 +8,10 @@ import HomeScreen from '../screens/HomeScreen';
 import MovieScreen from '../screens/MovieScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 
-const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
+import type { RootStackParamList, MainTabParamList } from '../types/navigation';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+const Tab = createBottomTabNavigator<MainTabParamList>();
 
 function MainTabs() {
   return (
@@ -22,10 +24,13 @@ function MainTabs() {
         },
         tabBarActiveTintColor: '#E50914',
         tabBarInactiveTintColor: '#bbb',
-        tabBarIcon: ({ color, size }) => {
+        tabBarIcon: ({ color, size, focused }) => {
           let iconName: keyof typeof Ionicons.glyphMap = 'home-outline';
-          if (route.name === 'Home') iconName = 'home-outline';
-          else if (route.name === 'Favorites') iconName = 'heart-outline';
+
+          if (route.name === 'Home') iconName = focused ? 'home' : 'home-outline';
+          else if (route.name === 'Favorites')
+            iconName = focused ? 'heart' : 'heart-outline';
+
           return <Ionicons name={iconName} size={size} color={color} />;
         },
       })}
